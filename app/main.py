@@ -1,25 +1,24 @@
-import email
-from random import randrange
-from fastapi import FastAPI,status,Response,HTTPException,Depends
-from fastapi.params import Body
-
+from fastapi import FastAPI
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import time
-from . import models,schemas,util
-from .database import engine,SessionLocal,get_db
-from sqlalchemy.orm import Session
-from .routers import post,user
-
-
+from .database import engine
+from . import models
+from .routers import post,user,auth,vote
+from fastapi.middleware.cors import CORSMiddleware
 
 
 models.Base.metadata.create_all(bind=engine)
 
 app=FastAPI()
 
-
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 while True:
@@ -37,7 +36,12 @@ while True:
 
 
 app.include_router(post.router)
+app.include_router(auth.router)
 app.include_router(user.router)
+app.include_router(vote.router)
 
+@app.get("/")
+def root():
+    return {"message":"hello world"}
 
 
