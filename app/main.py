@@ -21,17 +21,17 @@ app.add_middleware(
 )
 
 
-while True:
-    try:
-        conn=psycopg2.connect(host='localhost',database='fastapi',user='postgres',password='post'
-        ,cursor_factory=RealDictCursor)
-        cursor=conn.cursor()
-        print("database connection established")
-        break
-    except Exception as error:
-        print("connection fail")
-        print("Error:",error)
-        time.sleep(3)
+#while True:
+    #try:
+        #conn=psycopg2.connect(host='localhost',database='fastapi',user='postgres',password='post'
+        #,cursor_factory=RealDictCursor)
+        #cursor=conn.cursor()
+        #print("database connection established")
+        #break
+    #except Exception as error:
+        #print("connection fail")
+        #print("Error:",error)
+        #time.sleep(3)
 
 
 
